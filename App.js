@@ -1,5 +1,4 @@
 const Discord = require('discord.js');
-const { Server } = require('http');
 const Client = new Discord.Client();
 const { DateTime } = require('luxon');
 const Schedule = require('node-schedule');
@@ -21,7 +20,6 @@ Client.on('ready', async () => {
 
 // Message events
 Client.on('message', async msg => {
-  GetRandomRaider(msg.guild);
   if (msg.channel.name !== 'guild-apps' || !msg.embeds.length) return;
   if (msg.author === Client.user) return;
   console.log('This is the right channel & embed.');
