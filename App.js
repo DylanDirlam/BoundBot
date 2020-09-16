@@ -68,6 +68,9 @@ async function CheckChannels() {
   const DateToCheck = DateTime.local()
     .minus({ days: process.env.APP_CHANNEL_DURATION })
     .toFormat('LL-dd');
+  const DateToRemind = DateTime.local()
+    .minus({ days: process.env.APP_CHANNEL_DURATION - 1 })
+    .toFormat('LL-dd');
   const ServerToCheck = await Client.guilds.cache.find(
     guild => guild.id === process.env.SERVER_ID
   );
@@ -79,6 +82,11 @@ async function CheckChannels() {
       // Delete channel
       console.log(`${DateTime.local()} Deleting ${channel.name}`);
       channel.delete();
+    }
+    if (channel.name.startsWith(DateToRemind)) {
+      // Remind of channel deletion
+      console.log(`${DateTime.local()} Reminding ${channel.name}`);
+      channel.send('❗ Reminder: This channel will be removed in 1 day.');
     }
   });
 }
