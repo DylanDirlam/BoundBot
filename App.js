@@ -22,7 +22,7 @@ Client.on('ready', async () => {
 Client.on('message', async msg => {
   if (msg.channel.name !== 'guild-apps' || !msg.embeds.length) return;
   if (msg.author === Client.user) return;
-  console.log('This is the right channel & embed.');
+  console.log(`${DateTime.local()} New application received`);
   const Embeds = msg.embeds[0].fields;
   const NewEmbed = new Discord.MessageEmbed()
     .setColor('#2bd95c')
@@ -39,8 +39,8 @@ Client.on('message', async msg => {
     })
     .then(NewChannel => {
       NewChannel.send(NewEmbed);
+      console.log(`${DateTime.local()} Creating ${channel.name}`);
     });
-  console.log(`${DateTime.local()} Creating ${channel.name}`);
 });
 
 Client.on('guildCreate', async guild => {
