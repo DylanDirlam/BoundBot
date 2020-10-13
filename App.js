@@ -57,7 +57,7 @@ Client.on('guildDelete', async guild => {
 });
 
 // Daily check for old channels to remove
-Schedule.scheduleJob({ hour: 6 }, () => {
+Schedule.scheduleJob({ hour: 6, minute: 0 }, () => {
   CheckChannels();
 });
 setInterval(async function () {
