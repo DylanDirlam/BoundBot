@@ -39,7 +39,7 @@ Client.on('message', async msg => {
     })
     .then(NewChannel => {
       NewChannel.send(NewEmbed);
-      console.log(`${DateTime.local()} Creating ${channel.name}`);
+      console.log(`${DateTime.local()} Creating ${NewChannel.name}`);
     });
 });
 
@@ -65,11 +65,12 @@ setInterval(async function () {
 }, 600000);
 
 async function CheckChannels() {
+  const ChannelDuration = 7; // Days to keep the channel alive
   const DateToCheck = DateTime.local()
-    .minus({ days: process.env.APP_CHANNEL_DURATION })
+    .minus({ days: ChannelDuration })
     .toFormat('LL-dd');
   const DateToRemind = DateTime.local()
-    .minus({ days: process.env.APP_CHANNEL_DURATION - 1 })
+    .minus({ days: ChannelDuration - 1 })
     .toFormat('LL-dd');
   const ServerToCheck = await Client.guilds.cache.find(
     guild => guild.id === process.env.SERVER_ID
