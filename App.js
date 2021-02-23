@@ -38,7 +38,11 @@ Client.on('message', async msg => {
       parent: msg.channel.parent,
     })
     .then(NewChannel => {
-      NewChannel.send(NewEmbed);
+      NewChannel.send(NewEmbed)
+        .then(AppMessage => {
+          await AppMessage.react('📉');
+          AppMessage.react('📈');
+        });
       console.log(`${DateTime.local()} Creating ${NewChannel.name}`);
     });
 });
